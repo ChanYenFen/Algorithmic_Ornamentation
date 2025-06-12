@@ -33,28 +33,29 @@ const PETALS = 2;    // number of radial mirror axes
 // p5.js Lifecycle
 // ---------------------------
 function setup() {
-  createCanvas(1200, 2200);
-  startTime = millis();                // Record start time
+  let canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent('canvas-container');
+  canvas.style('display', 'block');
+  canvas.style('margin', '0 auto');
+  
+  startTime = millis();
 
-  colorMode(HSB, 350, 100, 100, 100);  // Hue, saturation, brightness, alpha
-  cols = floor(width  / scl);          // Compute grid dimensions
+  colorMode(HSB, 350, 100, 100, 100);
+  cols = floor(width / scl);
   rows = floor(height / scl);
-  fr   = createP('');                  // Create a paragraph for FPS display
+  fr = createP('').style('text-align', 'center');
 
-  // Initialize flowfield array
   flowfield = new Array(cols * rows);
 
-  // Fill colOffset[] with random seeds per column
   for (let x = 0; x < cols; x++) {
     colOffset[x] = random(1000);
   }
 
-  // Create particles
   for (let i = 0; i < particleCount; i++) {
     particles[i] = new Particle();
   }
 
-  background(95);                       // Light background
+  background(95);
 }
 
 function draw() {
